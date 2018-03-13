@@ -19,12 +19,12 @@
             <?php include('errors.php'); ?>
 
             <div class="input-group">
-                <label>Username</label>
-                <input type="text" name="username" >
+                <label>Nickname</label>
+                <input type="text" name="nick" >
             </div>
             <div class="input-group">
                 <label>Password</label>
-                <input type="password" name="password">
+                <input type="password" name="psw">
             </div>
             <div class="input-group">
                 <button type="submit" class="btn" name="login_user">Login</button>

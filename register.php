@@ -7,8 +7,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
+        
         <script>
-                        $("#gestore").hide();
+            window.onload = function() {
+                  $("#gestore").hide();
+            };
         </script>        
         
         <div class="header">
@@ -92,55 +95,10 @@
             </p>    
     
            
-<!--
-<form id="form-shower">
-<select id="myselect">
-<option value="form_name1">Form 1</option>
-<option value="form_name2">Form 2</option>
-<option value="form_name3">Form 3</option>
-</select>
-</form>
--->
 
 <form name="semplice" id="semplice" style="display:none">
 </form>
 
-<!--
-<form name="gestore" id="gestore" style="display:none">
-    <p >Inserisci i dati della tua attivit&agrave;!</p>
-    
-    <?//php include('errors.php'); ?>
-
-            <div class="input-group">
-                <label>Nome Attivita</label>
-                <input type="text" name="nomeAtt">
-            </div>
-            <div class="input-group">
-                <label>Telefono</label>
-                <input type="text" name="tel">
-            </div>
-            <div class="input-group">
-                <label>CAP</label>
-                <input type="text" name="codAvv" >
-            </div>      
-            <div class="input-group">
-                <label>Via</label>
-                <input type="text" name="via" >
-            </div>      
-            <div class="input-group">
-                <label>Civico</label>
-                <input type="text" name="civico" >
-            </div>      
-            <div class="input-group">
-                <label>SitoWeb</label>
-                <input type="text" name="sitoweb" >
-            </div>  
-            <div class="input-group" style="display: inline-block;margin-left: 40%;">
-                <button type="submit" class="btn" name="sub_gestore">Submit</button>
-            </div>
-    
-</form>
--->
 
 <script>
 $("#type").on("change", function() {
