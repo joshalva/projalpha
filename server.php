@@ -55,7 +55,7 @@ if (isset($_POST["reg_user"])) {
     
 }
 //registrazione utente gestore
-else if(isset($_POST["sub_gestore"])){
+if(isset($_POST["sub_gestore"])){
     setIscritto('Gestore', $dbalpha, $errorsalpha);
     $errori=$errorsalpha;
     $data=$dbalpha;
@@ -77,24 +77,27 @@ else if(isset($_POST["sub_gestore"])){
     if(empty($_POST["sitoweb"])){
         array_push($errori, "Inserire sito web");
     }
-    if(count)
-    $result=$data->prepare("CALL NuovoGestore(?,?,?,?,?,?,?,?)");
-       $result->bindParam(1, $_POST["nickname"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 20);
-       $result->bindParam(2, $_POST["citta"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 20);
-       $result->bindParam(3, $_POST["nomeAtt"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 30);
-       $result->bindParam(4, $_POST["tel"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 12);
-       $result->bindParam(5, $_POST["codAvv"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 5);
-       $result->bindParam(6, $_POST["via"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 50);
-       $result->bindParam(7, $_POST["civico"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 50);
-       $result->bindParam(8, $_POST["sitoweb"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 50);
-       $result->execute();
-       $nick=$_POST["nickname"];
-       $message = "wrong answer";
-       echo "<script type='text/javascript'>alert('$message');</script>";
-       $_SESSION['nickname'] = $nick;
-       $_SESSION['success'] = "You are now logged in";
-       header('location: index.php');
+    if(count($errors) == 0){
+           $result=$data->prepare("CALL NuovoGestore(?,?,?,?,?,?,?,?)");
+           $result->bindParam(1, $_POST["nickname"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 20);
+           $result->bindParam(2, $_POST["citta"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 20);
+           $result->bindParam(3, $_POST["nomeAtt"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 30);
+           $result->bindParam(4, $_POST["tel"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 12);
+           $result->bindParam(5, $_POST["codAvv"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 5);
+           $result->bindParam(6, $_POST["via"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 50);
+           $result->bindParam(7, $_POST["civico"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 50);
+           $result->bindParam(8, $_POST["sitoweb"], PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT, 50);
+           $result->execute();
+           
+        $nick=$_POST["nickname"];
+           $message = "wrong answer";
+           echo "<script type='text/javascript'>alert('$message');</script>";
+           $_SESSION['nickname'] = $nick;
+           $_SESSION['success'] = "$nick You are now logged in";
+           header('location: index.php');
+    }
 }
+    
 
 //login di un utente
 if (isset($_POST['login_user'])) {
