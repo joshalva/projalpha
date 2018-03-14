@@ -111,7 +111,7 @@ $("#type").on("change", function() {
                 block:"start"
             });
             $("#gestore").hide(); 
-            $("reg_user").show();
+            $("#reg_user").show();
         } else {
             
             
