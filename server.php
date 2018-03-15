@@ -43,7 +43,7 @@ function setIscritto($t, $database) {
     }
     if (count($errorsalpha) == 0) {
         $tipo = $t;
-        $password = md5($_POST["password_1"]);
+        $password =$_POST["password_1"];
         $result = $db->prepare("CALL NuovoUtente(?,?,?,?,?,?)");
         $result->bindParam(1, $_POST["nickname"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
         $result->bindParam(2, $password, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 15);
@@ -109,17 +109,43 @@ if (isset($_POST["sub_gestore"])) {
 }
 
 //login di un utente
-//if (isset($_POST['login_user'])) {
-//    if (empty($_POST["nick"])||empty($_POST["psw"])) {
-//        array_push($errorsalpha, "Dati di login mancanti");
+if (isset($_POST['login_user'])) {
+    if (empty($_POST["nick"])||empty($_POST["psw"])) {
+        array_push($errorsalpha, "Dati di login mancanti");
+    }
+    //DA MYSQLI A PDO
+    $name=$_POST["nick"];
+    $pass=$_POST["psw"];
+    $query = $dbalpha->prepare("SELECT Nickname,Password FROM iscritto WHERE (Nickname=:nick) AND (Password=:pass)");
+    $query->bindParam("nick", $name, PDO::PARAM_STR);
+    $query->bindParam("pass", $pass, PDO::PARAM_STR);
+    $query->execute();
+    
+    if ($query->rowCount() > 0){
+        $provaCaso=$query->fetch(PDO::FETCH_OBJ);
+        $_SESSION['nickname'] = $name;
+            $_SESSION['success'] = "You are now logged in "+$provaCaso;
+            header('location: index.php');
+    }
+        else{            $message = "wrong answer";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            
+        }
+    
+//    foreach ($ris as $row) {
+//        if($row['nickname']==$name && $row['password']==$psw){
+//            $_SESSION['nickname'] = $name;
+//            $_SESSION['success'] = "You are now logged in";
+//            header('location: index.php');
+//        }
+//        else{
+//            $message = "wrong answer";
+//            echo "<script type='text/javascript'>alert('$message');</script>";
+//            break;
+//        }
 //    }
-//    //DA MYSQLI A PDO
-//    $name=$_POST["nick"];
-//    $psw=$_POST["psw"];
-//
-//    $username = mysqli_real_escape_string($db, $_POST['username']);
-//    $password = mysqli_real_escape_string($db, $_POST['password']);
-//
+//    
+
 //    if (count($errors) == 0) {
 //        $password = md5($password);
 //        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
@@ -133,5 +159,5 @@ if (isset($_POST["sub_gestore"])) {
 //            array_push($errors, "Wrong username/password combination");
 //        }
 //    }
-//}
+}
 ?>
