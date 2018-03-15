@@ -131,33 +131,5 @@ if (isset($_POST['login_user'])) {
             echo "<script type='text/javascript'>alert('$message');</script>";
             
         }
-    
-//    foreach ($ris as $row) {
-//        if($row['nickname']==$name && $row['password']==$psw){
-//            $_SESSION['nickname'] = $name;
-//            $_SESSION['success'] = "You are now logged in";
-//            header('location: index.php');
-//        }
-//        else{
-//            $message = "wrong answer";
-//            echo "<script type='text/javascript'>alert('$message');</script>";
-//            break;
-//        }
-//    }
-//    
-
-//    if (count($errors) == 0) {
-//        $password = md5($password);
-//        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-//        $results = mysqli_query($db, $query);
-//
-//        if (mysqli_num_rows($results) == 1) {
-//            $_SESSION['username'] = $username;
-//            $_SESSION['success'] = "You are now logged in";
-//            header('location: index.php');
-//        } else {
-//            array_push($errors, "Wrong username/password combination");
-//        }
-//    }
 }
 ?>
