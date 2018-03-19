@@ -15,13 +15,26 @@ if (isset($_GET['logout'])) {
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home</title>
+        <title>SeeMyCity - Home</title>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div class="header">
-            <h2>Home Page</h2>
+        <div class="navcont">
+            <nav id="navbar">
+                <ul>
+                    <li id="nav1"><a href="home.html"><img src="images/logohome.PNG" alt="logo" width="100px" height="50px"></a></li>
+                    <li id="nav2"><em>Benvenuto<strong> <?php echo $_SESSION['nickname']; ?></strong>!</em></li>
+                    <li id="nav3"><img id="userph" src="images/user.png" width="45px" height="45px" ></li>
+                </ul>
+            </nav>
         </div>
+        <div class="contar">  <h1 id="titlehome"><em>Choose your destination</em></h1>
+        </div>
+        <br>
+        
+        <form action="/action_page.php" method ='POST'>City name!<br>
+            <input type="text" name="nomecitta">
+        </form>
         <div class="content">
 
             <!-- notification message -->
@@ -38,7 +51,6 @@ if (isset($_GET['logout'])) {
 
             <!-- logged in user information -->
             <?php if (isset($_SESSION['nickname'])) : ?>
-                <p>Welcome <strong><?php echo $_SESSION['nickname']; ?></strong></p>
                 <p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
             <?php endif ?>
         </div>

@@ -2,10 +2,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Registration system PHP and MySQL</title>
+        <title>SeeMyCity - Login</title>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body>
+    <body style="background: url(images/sfondologin.jpg) no-repeat center center fixed;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-attachment:fixed;">
+        
         <div class="header">
             <h1>Benvenuto in SeeMyCity</h1>
         </div>
@@ -30,7 +36,7 @@
                 <button type="submit" class="btn" name="login_user">Login</button>
             </div>
             <p>
-                Not yet a member? <a href="register.php">Sign up</a>
+                Non sei iscritto? <a href="register.php">Sign up</a>
             </p>
         </form>
 

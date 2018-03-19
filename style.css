@@ -1,10 +1,26 @@
+@font-face {
+   font-family: 'Mont-HeavyDEMO';
+   src: url(fonts/Mont-HeavyDEMO.otf) format('truetype');
+}
+@font-face {
+   font-family: 'Mont-ExtraLightDEMO';
+   src: url(fonts/Mont-ExtraLightDEMO.otf) format('truetype');
+}
+
 * {
 	margin: 0px;
 	padding: 0px;
 }
 body {
 	font-size: 120%;
-	background: #F8F8FF;
+        font-family: Mont-ExtraLightDEMO, Verdana, sans-serif;
+        
+   
+}
+
+
+h1, h2{
+        font-family: Mont-HeavyDEMO, Verdana, sans-serif;
 }
 
 .header {
@@ -15,7 +31,6 @@ body {
 	text-align: center;
 	border: 1px solid #B0C4DE;
 	border-bottom: none;
-	border-radius: 10px 10px 0px 0px;
 	padding: 20px;
 }
 form, .content {
@@ -24,7 +39,6 @@ form, .content {
 	padding: 20px;
 	border: 1px solid #B0C4DE;
 	background: white;
-	border-radius: 0px 0px 10px 10px;
 }
 .input-group {
 	margin: 10px 0px 10px 0px;
@@ -40,7 +54,6 @@ form, .content {
 	width: 93%;
 	padding: 5px 10px;
 	font-size: 16px;
-	border-radius: 5px;
 	border: 1px solid gray;
 }
 .btn {
@@ -66,4 +79,79 @@ form, .content {
 	background: #dff0d8; 
 	border: 1px solid #3c763d;
 	margin-bottom: 20px;
+}
+a{
+    margin: 0;
+    padding: 0;
+}
+
+.navcont{
+    height: 50px;
+}
+
+#navbar{
+    position: relative;
+    width: auto;
+    height: inherit;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: inherit;
+/*
+    background-color: lightgrey;
+    opacity: 30%;
+*/
+}
+li{display: inline-block;
+    height: inherit;
+}
+#nav1{
+    float: left;
+    height: 75px;
+    width: 150px;
+}
+ul #nav2{
+    float: none;
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    font-size: 2vw;
+    padding-top: 10px;
+}
+#nav3{
+    float: right;
+    width: 75px;
+}
+#userph{
+    padding-top: 5px;
+}
+.contar{ 
+    position: relative;
+    width: 100%;
+    height:450px;
+    border: 0.5 px solid black;
+    background-image: url(images/sfondo.jpg);
+    -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment:fixed;
+    text-align: center;
+    color: rgba(200,200,200,0.7);
+}
+
+.topBackground{
+    z-index: -100;
+}
+
+#titlehome{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-100%);
+    font-size: 4.0vw;
 }

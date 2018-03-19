@@ -2,11 +2,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Registration system PHP and MySQL</title>
+        <title>SeeMyCity - registrazione utente</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
-    <body>
+    <body style="background: url(images/sfondologin.jpg) no-repeat center center fixed;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-attachment:fixed;">
         
         <script>
             window.onload = function() {
@@ -43,22 +48,22 @@
                 <input type="password" name="password_1">
             </div >
             <div class="input-group">
-                <label>Confirm password</label>
+                <label>Conferma password</label>
                 <input type="password" name="password_2">
             </div>
             <div class="input-group"  >
-                <label>Scegli il tuo tipo di account!!!</label>
+                <label>Scegli il tuo tipo di account</label>
                 <select name='type' id='type' style="display: inline-block;margin-left: 40%;" >
                         <option value='semplice' >Semplice</option>
                         <option value='gestore' >Gestore</option>
                 </select>   
             </div>
             <div class="input-group" style="display: inline-block;margin-left: 40%;">
-                <button type="submit" class="btn" id="reg_user" name="reg_user">Register</button>
+                <button type="submit" class="btn" id="reg_user" name="reg_user">Registrati</button>
             </div>
             
             <div id="gestore">
-                 <p > <b>Inserisci i dati della tua attivit&agrave;!</b></p>
+                 <p><b>Inserisci i dati della tua attivit&agrave;</b></p>
                 
                 <div class="input-group">
                     <label>Nome Attivita</label>
@@ -81,17 +86,17 @@
                     <input type="text" name="civico" >
                 </div>      
                 <div class="input-group">
-                    <label>SitoWeb</label>
+                    <label>Sito Web</label>
                     <input type="text" name="sitoweb" >
                 </div>  
                 <div class="input-group" style="display: inline-block;margin-left: 40%;">
-                    <button type="submit" class="btn" name="sub_gestore">Submit</button>
+                    <button type="submit" class="btn" name="sub_gestore">Registrati</button>
                 </div>
             </div>
 
 
             <p style="font-size: 9px;float: right;">
-                Already a member? <a href="login.php">Sign in</a>
+                Sei gi&agrave; iscritto? <a href="login.php">Sign in</a>
             </p>    
     
            
