@@ -1,0 +1,179 @@
+/*Creazione del DB*/
+DROP DATABASE ALPHA;
+CREATE DATABASE ALPHA;
+USE ALPHA;
+
+CREATE TABLE CITTA(
+	Nome VARCHAR(20) NOT NULL PRIMARY KEY, #uso solo questa come pk perche i comuni con nome uguale sono minimi fonte: http://www.comuni-italiani.it/nomi/omonimi/
+	Regione VARCHAR(20) NOT NULL,
+	Stato VARCHAR(20)
+
+) ENGINE = INNODB;
+
+CREATE TABLE ATTRATTIVA(
+	Id SMALLINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	Citta VARCHAR(20),
+	Via VARCHAR(30),
+	Civico VARCHAR(5),
+	CAP INT(5),
+	Latitudine FLOAT( 10, 6 ) ,#NOT NULL , da valutare not null sull inserimento di sti valori
+	Longitudine FLOAT( 10, 6 ) ,#NOT NULL , esiste una api che mi rende lat e longit di un indirizzo??
+	
+	FOREIGN KEY (Citta) REFERENCES CITTA(Nome) ON UPDATE CASCADE ON DELETE CASCADE
+
+)ENGINE = INNODB;
+
+CREATE TABLE ATTIVITA (
+	Id SMALLINT NOT NULL PRIMARY KEY,
+	Citta VARCHAR(20) NOT NULL ,
+	GiornoChiusura ENUM('Lunedi','Martedi','Mercoledi','Giovedi','Venerdi','Sabato','Domenica','Sempre Aperto') DEFAULT 'Lunedi',
+	OrarioApertura TIME,
+	OrarioChiusura	TIME, /*secondi inclusi!!!!*/
+	Prezzo ENUM('1','2','3','4','5') DEFAULT '1',/*catalogare in stelline da una a cinque*/
+
+	FOREIGN KEY (Citta) REFERENCES ATTRATTIVA(Citta),
+	FOREIGN KEY (Id) REFERENCES ATTRATTIVA(Id)
+
+)ENGINE = INNODB;
+
+CREATE TABLE MONUMENTO (
+	Id SMALLINT NOT NULL PRIMARY KEY,
+	Citta VARCHAR(20) NOT NULL,
+	Stato ENUM('Visitabile','Non Visitabile','Visitabile Gratis') DEFAULT 'Visitabile',
+	Descrizione VARCHAR(200),
+
+	FOREIGN KEY (Id) REFERENCES ATTRATTIVA(Id),
+	FOREIGN KEY (Citta) REFERENCES ATTRATTIVA(Citta)
+
+)ENGINE = INNODB;
+
+CREATE TABLE ISCRITTO(
+	Nickname VARCHAR(20) NOT NULL PRIMARY KEY,
+	Password VARCHAR(15) NOT NULL,
+	DataNascita DATE,
+	Citta VARCHAR(20),
+	Email VARCHAR(250) NOT NULL UNIQUE,
+	#Numero_Attrattive conteggio attrattive inserite da utente
+	Tipo ENUM('Semplice','Premium','Gestore') DEFAULT 'Semplice',
+
+	FOREIGN KEY (Citta) REFERENCES CITTA(Nome) ON UPDATE CASCADE ON DELETE CASCADE
+
+)ENGINE = INNODB;
+
+CREATE TABLE GESTORE(
+	Nickname VARCHAR(20) NOT NULL PRIMARY KEY,
+	Citta VARCHAR(20),
+	#Numero_Attrattive conteggio attrattive inserite da utente
+	NomeAttivita VARCHAR(30),
+	Telefono VARCHAR(12),
+	CAP VARCHAR(5),
+	Via VARCHAR(50),
+	Civico	VARCHAR(50), #SERIOUSLY 50????
+	SitoWeb VARCHAR(50),
+
+	FOREIGN KEY (Citta) REFERENCES CITTA(Nome) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (Nickname) REFERENCES ISCRITTO(Nickname) ON UPDATE CASCADE ON DELETE CASCADE
+
+)ENGINE = INNODB;
+
+
+CREATE TABLE PERCORSO (
+	Id SMALLINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	Nome VARCHAR(20) NOT NULL,
+	NomeCitta VARCHAR(20) ,
+	Durata SMALLINT ,
+	Categoria ENUM('Arte','Storia','Natura','Gastronomico','Relax','Misto') DEFAULT 'Misto',
+	Autore VARCHAR(20),
+
+	FOREIGN KEY (Autore) REFERENCES ISCRITTO(Nickname) ON UPDATE CASCADE,
+	FOREIGN KEY (NomeCitta) REFERENCES CITTA(Nome) ON UPDATE CASCADE
+
+)ENGINE = INNODB;
+
+CREATE TABLE LISTA(
+	IdPercorso SMALLINT,
+	IdAttrattiva SMALLINT,
+	Tempo SMALLINT,
+	Ordine SMALLINT(2),
+
+	PRIMARY KEY(IdPercorso,IdAttrattiva),
+	FOREIGN KEY(IdPercorso) REFERENCES PERCORSO(Id),
+	FOREIGN KEY(IdAttrattiva) REFERENCES ATTRATTIVA(Id)
+
+
+)ENGINE = INNODB;
+
+CREATE TABLE EVENTO(
+	Id SMALLINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	Titolo VARCHAR(40) NOT NULL,
+	Capacita SMALLINT,
+	DataInizio DATE,
+	Orario VARCHAR(6),
+	Organizzatore VARCHAR(20),
+
+	FOREIGN KEY(Organizzatore) REFERENCES GESTORE(Nickname) 
+
+)ENGINE = INNODB;
+
+CREATE TABLE PARTECIPAZIONE(
+	IdEvento SMALLINT ,
+	NickUtente VARCHAR(30),
+
+	PRIMARY KEY(IdEvento,NickUtente),
+	FOREIGN KEY (IdEvento) REFERENCES EVENTO(Id),
+	FOREIGN KEY (NickUtente) REFERENCES ISCRITTO(Nickname)
+
+)ENGINE = INNODB;
+
+
+CREATE TABLE PREFERENZA(
+	NickUtente VARCHAR(20),
+	IdPercorso SMALLINT,
+	Note VARCHAR(200),
+
+	PRIMARY KEY(NickUtente,IdPercorso),
+
+	FOREIGN KEY (NickUtente) REFERENCES ISCRITTO(Nickname) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY (IdPercorso) REFERENCES PERCORSO(Id) ON UPDATE CASCADE
+
+)ENGINE = INNODB;
+
+
+ CREATE TABLE MESSAGGIO(
+	Id SMALLINT AUTO_INCREMENT PRIMARY KEY,
+	Titolo VARCHAR(20),
+	Data DATE,
+	Descrizione VARCHAR(3000),
+	Destinatario VARCHAR(30),
+	Mittente VARCHAR(30),
+
+	FOREIGN KEY (Destinatario) REFERENCES ISCRITTO(Nickname),
+	FOREIGN KEY (Mittente) REFERENCES ISCRITTO(Nickname)
+	
+	)ENGINE = INNODB;
+
+
+CREATE TABLE COMMENTO(
+	Nickname VARCHAR(20) NOT NULL,
+	Visibilita ENUM('Pubblica','Privata') DEFAULT 'Pubblica',
+	Data DATE,
+	Votazione ENUM('1','2','3','4','5') DEFAULT NULL,
+	IdAttrattiva SMALLINT NOT NULL,
+
+	PRIMARY KEY(Nickname,IdAttrattiva),
+	FOREIGN KEY (IdAttrattiva) REFERENCES ATTRATTIVA(Id),
+	FOREIGN KEY (Nickname) REFERENCES ISCRITTO(Nickname)
+
+)ENGINE = INNODB;
+
+CREATE TABLE SUGGERITO(
+	IdPercorso SMALLINT NOT NULL,
+    NickUtente VARCHAR(30) NOT NULL,
+    
+    PRIMARY KEY(IdPercorso,NickUtente),
+    FOREIGN KEY(IdPercorso) REFERENCES PERCORSO(Id),
+	FOREIGN KEY(NickUtente) REFERENCES ISCRITTO(Nickname)
+    
+    )ENGINE = INNODB;
+    
