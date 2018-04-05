@@ -44,7 +44,7 @@ function setIscritto($t, $database) {
     if (count($errorsalpha) == 0) {
         $tipo = $t;
         $password =$_POST["password_1"];
-        $result = $db->prepare("CALL NuovoUtente(?,?,?,?,?,?)");
+        $result = $db->prepare("CALL NuovoUtente(?,?,?,?,?,?,@esito)");
         $result->bindParam(1, $_POST["nickname"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
         $result->bindParam(2, $password, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 15);
         $result->bindParam(3, $_POST["datanascita"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
@@ -52,11 +52,27 @@ function setIscritto($t, $database) {
         $result->bindParam(5, $_POST["email"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 250);
         $result->bindParam(6, $tipo, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
         $result->execute();
-        $infoSession = true;
-    }
+        $result->closeCursor();
+        
+        $risultato=$db->query("select @esito");
+        $row=$risultato->fetch();
+        
+//       4 = citta non presente
+//           header newcity form tutto per la city
+//          echo"<script>
+//            <br>
+//          </script>"  formCitta.show()
+           
+           
+        if ($row['@esito']==9){
+           $infoSession = true;    
+        } else {
+            array_push($errorsalpha, "Errore! Registrazione non valida!");
+        }
+    } 
 }
 
-//registrazione utente semplice
+//registrazixone utente semplice
 if (isset($_POST["reg_user"])) {
     setIscritto('Semplice', $dbalpha);
     if ($infoSession == true) {
