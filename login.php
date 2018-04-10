@@ -39,7 +39,5 @@
                 Non sei iscritto? <a href="register.php">Sign up</a>
             </p>
         </form>
-
-
     </body>
 </html>

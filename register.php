@@ -1,4 +1,5 @@
 <?php include('server.php') ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,11 +17,13 @@
         <script>
             window.onload = function() {
                   $("#gestore").hide();
+                  $("#show-me").hide();
             };
+
         </script>        
         
         <div class="header">
-            <h2>Register</h2>
+            <h2>Registrazione</h2>
         </div>
 
         <form method="post" id="form1" action="register.php">
@@ -35,13 +38,45 @@
                 <label>Email</label>
                 <input type="email" name="email">
             </div>
-            <div class="input-group">
+            <div class="input-group" id="cities">
                 <label>Citt&agrave</label>
-                <input type="text" name="citta" >
+                <select name="citta">
+                <?php
+                    try {
+                        $hostname = "localhost";
+                        $dbname = "alpha";
+                        $user = "root";
+                        $connection = new PDO("mysql:host=$hostname;dbname=$dbname", $user);
+                    } catch (PDOException $e) {
+                        echo "Errore: " . $e->getMessage();
+                        die();
+                    }
+                    $option="";
+                    $city = $connection->prepare("SELECT nome FROM citta");
+                    $city->execute();
+                    $result = $city->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($result as $row){
+                        $id = $row['nome'];
+                        $option='<option value="'.$id.'">'.$id.'</option>';
+                        print $option;
+                    }
+                ?>
+                </select>
+            </div>
+            <p style="font-size: 12px; float: right;">
+                Citt&agrave non presente <input type="radio" name="scelta" id="watch-me" value="nonpresente"> Citt&agrave presente <input type="radio" name="scelta" value="presente" checked>
+                </p>
+            <div class="input-group" id="show-me">
+                <label>Citta</label>
+                <input type="text" name="newcity">
+                <label>Regione</label>
+                <input type="text" name="regione">
+                <label>Stato</label>
+                <input type="text" name="stato">
             </div>
             <div class="input-group">
                 <label>Data di nascita</label>
-                <input type="date" name="datanascita" value="<?php echo $datanascita; ?>">
+                <input type="date" name="datanascita">
             </div>
             <div class="input-group">
                 <label>Password</label>
@@ -105,7 +140,7 @@
 </form>
 
 
-<script>
+<script type="text/javascript">
 $("#type").on("change", function() {
     
     if($('#type').val() == 'semplice') {
@@ -129,18 +164,23 @@ $("#type").on("change", function() {
             $("#reg_user").hide();
                  
         } 
-    
-    
-   
 })
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+   $('input[type="radio"]').click(function() {
+       if($(this).attr('id') == 'watch-me') {
+            $('#show-me').show();   
+            $('#cities').hide();        
+       }
 
-
-            
-
+       else {
+            $('#show-me').hide();
+            $('#cities').show();  
+       }
+   });
+});
+</script>
         </form>
-        
-
-        
     </body>
 </html>

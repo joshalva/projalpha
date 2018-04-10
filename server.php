@@ -41,35 +41,56 @@ function setIscritto($t, $database) {
     if ($_POST["password_1"] != $_POST["password_2"]) {
         array_push($errorsalpha, "Le due password non corrispondono");
     }
-    if (count($errorsalpha) == 0) {
-        $tipo = $t;
-        $password =$_POST["password_1"];
-        $result = $db->prepare("CALL NuovoUtente(?,?,?,?,?,?,@esito)");
-        $result->bindParam(1, $_POST["nickname"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
-        $result->bindParam(2, $password, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 15);
-        $result->bindParam(3, $_POST["datanascita"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
-        $result->bindParam(4, $_POST["citta"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
-        $result->bindParam(5, $_POST["email"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 250);
-        $result->bindParam(6, $tipo, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
-        $result->execute();
-        $result->closeCursor();
-        
-        $risultato=$db->query("select @esito");
-        $row=$risultato->fetch();
-        
-//       4 = citta non presente
-//           header newcity form tutto per la city
-//          echo"<script>
-//            <br>
-//          </script>"  formCitta.show()
-           
-           
-        if ($row['@esito']==9){
-           $infoSession = true;    
-        } else {
-            array_push($errorsalpha, "Errore! Registrazione non valida!");
-        }
-    } 
+    if ($_POST["scelta"]=="presente") {
+    	if (count($errorsalpha) == 0) {
+    		
+    			$tipo = $t;
+        		$password =$_POST["password_1"];
+        		$result = $db->prepare("CALL NuovoUtente(?,?,?,?,?,?,@esito)");
+        		$result->bindParam(1, $_POST["nickname"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
+        		$result->bindParam(2, $password, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 15);
+        		$result->bindParam(3, $_POST["datanascita"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
+        		$result->bindParam(4, $_POST["citta"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
+        		$result->bindParam(5, $_POST["email"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 250);
+        		$result->bindParam(6, $tipo, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
+        		$result->execute();
+        		$result->closeCursor();
+                $risultato=$db->query("select @esito");
+        		$row=$risultato->fetch(); 
+                if ($row['@esito']==9){
+           			$infoSession = true;    
+        		} else {
+            		array_push($errorsalpha, "Errore! Registrazione non valida!");
+        		}	
+    	}
+	}
+	else if($_POST["scelta"]=="nonpresente"){
+		if (empty($_POST["newcity"]) || empty($_POST["regione"]) || empty($_POST["stato"])) {
+        	array_push($errorsalpha, "Dati città mancanti");
+    	}
+    	if (count($errorsalpha) == 0) {
+    		$cityquery=$db->prepare("INSERT INTO citta(Nome, Regione, Stato) VALUES ('".$_POST["newcity"]."', '".$_POST["regione"]."', '".$_POST["stato"]."')");
+    		$cityquery->execute();
+    		$tipo = $t;
+        	$password =$_POST["password_1"];
+        	$resultc = $db->prepare("CALL NuovoUtente(?,?,?,?,?,?,@esito)");
+        	$resultc->bindParam(1, $_POST["nickname"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
+        	$resultc->bindParam(2, $password, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 15);
+        	$resultc->bindParam(3, $_POST["datanascita"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
+        	$resultc->bindParam(4, $_POST["newcity"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 20);
+        	$resultc->bindParam(5, $_POST["email"], PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 250);
+        	$resultc->bindParam(6, $tipo, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT);
+        	$resultc->execute();
+        	$resultc->closeCursor();
+            $risultato=$db->query("select @esito");
+        	$row=$risultato->fetch(); 
+            if ($row['@esito']==9){
+           		$infoSession = true;    
+        	} else {
+            	array_push($errorsalpha, "Errore! Registrazione non valida!");
+        	}
+    	}
+	}
 }
 
 //registrazixone utente semplice
