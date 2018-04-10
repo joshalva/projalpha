@@ -14,8 +14,6 @@
 body {
 	font-size: 120%;
         font-family: Mont-ExtraLightDEMO, Verdana, sans-serif;
-        
-   
 }
 
 
@@ -154,4 +152,33 @@ ul #nav2{
     left: 50%;
     transform: translate(-50%,-100%);
     font-size: 4.0vw;
+}
+
+
+.grid-container
+{
+    display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.grid-item {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+.chartSx{
+    grid-column: 1/4
+}
+.fotoDx{
+    grid-column: 4/7;
+}
+.chartDx{
+    grid-column: 3/7
+}
+.fotoSx{
+    grid-column: 1/3;
 }
