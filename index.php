@@ -47,7 +47,7 @@ if (isset($_GET['logout'])) {
         </form>
        
         <div class="grid-container">
-              <div class="grid-item chartSx">   
+              <div class="grid-item sideCont">   
                   <?php
                   //recupero la citta' dell'utente
                     $city = $dbalpha->prepare("SELECT citta FROM iscritto WHERE Nickname ='" .$_SESSION['nickname']."'");
@@ -68,8 +68,13 @@ if (isset($_GET['logout'])) {
                       }
                   ?>
             </div>
-              <div class="grid-item fotoDx">2
-                     <?php
+              <div class="grid-item fotoTopGrid">2
+                    
+            
+            
+            </div>
+              <div class="grid-item contentSx">3</div>
+              <div class="grid-item contentDx">4 <?php
                   //recupero la citta' dell'utente
                     $city = $dbalpha->prepare("SELECT citta FROM iscritto WHERE Nickname ='" .$_SESSION['nickname']."'");
                     $city->execute();
@@ -87,14 +92,8 @@ if (isset($_GET['logout'])) {
                         $riga='<p>'.$titolo.'   '.$data.'    '.$organizzatore.' </p>';
                           print $riga;
                       }
-                  ?>
+                  ?></div>
             
-            
-            </div>
-              <div class="grid-item fotoSx">3</div>
-              <div class="grid-item chartDx">4</div>
-              <div class="grid-item">4</div>
-              <div class="grid-item">4</div>
         </div>
         
         
