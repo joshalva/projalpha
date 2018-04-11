@@ -61,7 +61,7 @@ if (isset($_GET['logout'])) {
                 
             </div>
        
-            <div class="grid-item contentTopSx">   
+            <div class="grid-item contentTopSx">   Lista 5 attrattive più popolari in citta selezionata
                   <?php
                   //recupero la citta' dell'utente
                     $city = $dbalpha->prepare("SELECT citta FROM iscritto WHERE Nickname ='" .$_SESSION['nickname']."'");
@@ -81,13 +81,10 @@ if (isset($_GET['logout'])) {
                       }
                   ?>
             </div>
-              <div class="grid-item fotoTopDx">2
-                    
-            
-            
+              <div class="grid-item fotoTopDx"> foto della prima attrattiva della lista accanto
             </div>
-              <div class="grid-item fotoMidSx">3</div>
-              <div class="grid-item contentMidDx">4 <?php
+              <div class="grid-item fotoMidSx">foto citta random</div>
+              <div class="grid-item contentMidDx">eventi della citta <?php
                   //recupero la citta' dell'utente
                     $city = $dbalpha->prepare("SELECT citta FROM iscritto WHERE Nickname ='" .$_SESSION['nickname']."'");
                     $city->execute();
@@ -106,7 +103,7 @@ if (isset($_GET['logout'])) {
                           print $riga;
                       }
                   ?></div>
-                      <div class="grid-item contentBot">booooot</div>    
+                      <div class="grid-item contentBot">lista percorsi piu popolari. in ogni div con liste va implementato bottone per visione di tutto l'elenco completo</div>    
     </div> 
 <!--        chiudo il grid container-->
             <!-- notification message -->
