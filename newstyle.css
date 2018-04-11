@@ -1,0 +1,292 @@
+@font-face {
+   font-family: 'Mont-HeavyDEMO';
+   src: url(fonts/Mont-HeavyDEMO.otf) format('truetype');
+}
+@font-face {
+   font-family: 'Mont-ExtraLightDEMO';
+   src: url(fonts/Mont-ExtraLightDEMO.otf) format('truetype');
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+body {
+	font-size: 120%;
+        font-family: Mont-ExtraLightDEMO, Verdana, sans-serif;
+}
+
+
+h1, h2{
+        font-family: Mont-HeavyDEMO, Verdana, sans-serif;
+}
+
+.header {
+	width: 30%;
+	margin: 10px auto 0px;
+	color: white;
+	background: #5F9EA0;
+	text-align: center;
+	border: 1px solid #B0C4DE;
+	border-bottom: none;
+	padding: 20px;
+}
+form, .content {
+	width: 30%;
+	margin: 0px auto;
+	padding: 20px;
+	border: 1px solid #B0C4DE;
+	background: white;
+}
+.input-group {
+	margin: 10px 0px 10px 0px;
+}
+
+.input-group label {
+	display: block;
+	text-align: left;
+	margin: 3px;
+}
+.input-group input {
+	height: 30px;
+	width: 93%;
+	padding: 5px 10px;
+	font-size: 16px;
+	border: 1px solid gray;
+}
+.btn {
+	padding: 10px;
+	font-size: 15px;
+	color: white;
+	background: #5F9EA0;
+	border: none;
+	border-radius: 5px;
+}
+.error {
+	width: 92%; 
+	margin: 0px auto; 
+	padding: 10px; 
+	border: 1px solid #a94442; 
+	color: #a94442; 
+	background: #f2dede; 
+	border-radius: 5px; 
+	text-align: left;
+}
+.success {
+	color: #3c763d; 
+	background: #dff0d8; 
+	border: 1px solid #3c763d;
+	margin-bottom: 20px;
+}
+a{
+    margin: 0;
+    padding: 0;
+}
+
+.navcont{
+    height: 50px;
+    grid-area: navcont;
+}
+
+#navbar{
+    position: relative;
+    width: auto;
+    height: inherit;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: inherit;
+/*
+    background-color: lightgrey;
+    opacity: 30%;
+*/
+}
+li{display: inline-block;
+    height: inherit;
+}
+#nav1{
+    float: left;
+    height: 75px;
+    width: 150px;
+}
+ul #nav2{
+    float: none;
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    font-size: 2vw;
+    padding-top: 10px;
+}
+#nav3{
+    float: right;
+    width: 45px;
+    
+}
+#userph{
+    padding-top: 5px;
+}
+.fotoMid{ 
+    position: relative;
+    width: 100%;
+    height:450px;
+    border: 0.5 px solid black;
+    background-image: url(images/sfondo.jpg);
+    -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment:fixed;
+    text-align: center;
+    color: rgba(200,200,200,0.7);
+    grid-area: fotoMid;
+}
+
+.topBackground{
+    z-index: -100;
+}
+
+#titlehome{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-100%);
+    font-size: 4.0vw;
+}
+
+
+.grid-container{
+  display: grid;
+    width: 100%;
+  grid-template-columns: .75fr 1fr 1fr;
+   grid-template-rows: inherit 1fr 1fr 1fr 1fr;  
+  background-color: transparent;
+    grid-gap: 1rem;
+    grid-template-areas: 
+        "navcont navcont navcont"
+        "fotoMid fotoMid fotoMid"
+        "sideCont contentSx contentDx"
+        "sideCont fotoTopGrid fotoTopGrid"
+        "sideCont fotoTopGrid fotoTopGrid"
+        ;
+ }
+
+.grid-item {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 8%;
+  font-size: 1.35vw;
+  text-align: center;
+}
+
+.sideCont{
+    grid-area: sideCont;
+    text-align: center;
+    background-color: lightblue;
+/*    sarebbe figo che qui ci stesse una fotografia che scorrendoci sopra la puoi scorrere per lunghezza per vedere le parti tagliate dal formato strano*/
+}
+.fotoTopGrid{
+    grid-area: fotoTopGrid;
+    background: fixed;
+    background-image: url(images/backprova.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.contentDx{
+    grid-area: contentDx;
+}
+.contentSx{
+    grid-area: contentSx;
+}
+
+
+/*grid per citta*/
+
+.grid-container-citta{
+  display: grid;
+    width: 100%;
+  grid-template-columns: .75fr 1fr 1fr;
+   grid-template-rows: inherit 1fr 1fr 1fr 1fr;  
+  background-color: transparent;
+    grid-gap: 1rem;
+    grid-template-areas: 
+        "navcont navcont navcont"
+        "fotoMid fotoMid fotoMid"
+        "contentTopSx contentTopSx fotoTopDx"
+        "fotoMidSx contentMidDx contentMidDx"
+        "contentBot contentBot contentBot"
+        ;
+ }
+
+.contentTopSx{
+    grid-area: contentTopSx;
+    background-color: aqua;
+}
+.fotoTopDx{
+    grid-area: fotoTopDx;
+    background: green;
+}
+.fotoMidSx{
+    grid-area: fotoMidSx;
+    background-color: bisque;
+}
+.contentMidDx{
+    grid-area: contentMidDx;
+    background-color: orangered;
+}
+.contentBot{
+    grid-area: contentBot;
+    background-color: peachpuff;
+}
+
+
+
+ /* Dropdown Button */
+.dropbtn {
+    right: 2%;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    background-image: url(images/user.png);
+    background-size: 45px 45px;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+ }
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: absolute;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 5%;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;} 
