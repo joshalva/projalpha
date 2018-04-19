@@ -153,47 +153,59 @@ if (isset($_POST['login_user'])) {
     //DA MYSQLI A PDO
     $name = $_POST["nick"];
     $pass=$_POST["psw"];
-    $query = $dbalpha->prepare("SELECT Nickname,Password FROM iscritto WHERE (Nickname=:nick) AND (Password=:pass)");
+    $query = $dbalpha->prepare("SELECT Nickname,Password,citta FROM iscritto WHERE (Nickname=:nick) AND (Password=:pass)");
     $query->bindParam("nick", $name, PDO::PARAM_STR);
     $query->bindParam("pass", $pass, PDO::PARAM_STR);
     $query->execute();
-
+    $result=$query->fetchAll(PDO::FETCH_ASSOC);        
+        print_r($result);
+    foreach($result as $row){
+                        $cittaUt=$row['citta'];
+         }
     if ($query->rowCount() > 0) {
         $provaCaso = $query->fetch(PDO::FETCH_OBJ);
         $_SESSION['nickname'] = $name;
-        $_SESSION['success'] = "You are now logged in " + $provaCaso;
+        $_SESSION['cittaUtente']=$cittaUt;
+        $_SESSION['success'] = "You are now logged in";
         header('location: index.php');
     } else {
         $message = "wrong answer";
         $cacca=$query->rowCount();
         echo "<script type='text/javascript'>alert('$pass'+ non valida);</script>";
     }
-
-//    foreach ($ris as $row) {
-//        if($row['nickname']==$name && $row['password']==$psw){
-//            $_SESSION['nickname'] = $name;
-//            $_SESSION['success'] = "You are now logged in";
-//            header('location: index.php');
-//        }
-//        else{
-//            $message = "wrong answer";
-//            echo "<script type='text/javascript'>alert('$message');</script>";
-//            break;
-//        }
-//    }
-//    
-//    if (count($errors) == 0) {
-//        $password = md5($password);
-//        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-//        $results = mysqli_query($db, $query);
-//
-//        if (mysqli_num_rows($results) == 1) {
-//            $_SESSION['username'] = $username;
-//            $_SESSION['success'] = "You are now logged in";
-//            header('location: index.php');
-//        } else {
-//            array_push($errors, "Wrong username/password combination");
-//        }
-//    }
 }
+
+//if(isset($_POST['nomeCitta'])) {
+//        $return_arr = array();
+//        $i=0;
+//        $name=$_POST['nomeCitta'];
+//        echo $name;
+////        $stmt = $dbalpha->prepare('SELECT nome FROM citta WHERE nome LIKE ?');
+//
+//        $stmt = $dbalpha->prepare("SELECT nome FROM citta WHERE nome LIKE'%" . $name . "%' ");
+//        $stmt->execute();
+////        $result = $stmt->fetch(PDO::FETCH_OBJ);
+////        foreach ($result as $row) {
+////            echo "entrao nel for";
+////            $id = $row['nome'];
+////            $return_arr[]=$id;
+////        }
+//        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//        print_r($result);
+//        
+//            foreach($result as $row){
+//                        echo "ciao";
+//                        $return_arr[]=$row['nome'];
+//                        echo "<br><br> test";
+//                            var_dump($return_arr);
+//                    }
+//    
+//    /* Toss back results as json encoded array. */
+//    echo json_encode($return_arr);
+//    
+//}
+
+
+
+
 ?>
