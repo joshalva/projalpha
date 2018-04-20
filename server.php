@@ -170,42 +170,17 @@ if (isset($_POST['login_user'])) {
         header('location: index.php');
     } else {
         $message = "wrong answer";
-        $cacca=$query->rowCount();
         echo "<script type='text/javascript'>alert('$pass'+ non valida);</script>";
     }
 }
 
-//if(isset($_POST['nomeCitta'])) {
-//        $return_arr = array();
-//        $i=0;
-//        $name=$_POST['nomeCitta'];
-//        echo $name;
-////        $stmt = $dbalpha->prepare('SELECT nome FROM citta WHERE nome LIKE ?');
-//
-//        $stmt = $dbalpha->prepare("SELECT nome FROM citta WHERE nome LIKE'%" . $name . "%' ");
-//        $stmt->execute();
-////        $result = $stmt->fetch(PDO::FETCH_OBJ);
-////        foreach ($result as $row) {
-////            echo "entrao nel for";
-////            $id = $row['nome'];
-////            $return_arr[]=$id;
-////        }
-//        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//        print_r($result);
-//        
-//            foreach($result as $row){
-//                        echo "ciao";
-//                        $return_arr[]=$row['nome'];
-//                        echo "<br><br> test";
-//                            var_dump($return_arr);
-//                    }
-//    
-//    /* Toss back results as json encoded array. */
-//    echo json_encode($return_arr);
-//    
-//}
+if(isset($_POST['subEvent'])){
+        //call partecipaEvento  devo passargli $_SESSION['NICKNAME'] & IDEVENTO (IN GET SULLA PAGINA)
+    }
 
-
+if(isset($_POST['unsubEvent'])){
+    //call nonpartecipapiuallevento come sopra
+}
 
 
 ?>

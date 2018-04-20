@@ -39,7 +39,7 @@ if (isset($_GET['logout'])) {
                 <nav id="navbar">
                     <ul>
                         <li id="nav1"><a href="index.php"><img src="images/logohome.PNG" alt="logo" width="100px" height="50px"></a></li>
-                        <li id="nav2"><em>Benvenuto<strong> <?ph        p echo $_SESSION['nickname']; ?></strong>!</em></li>
+                        <li id="nav2"><em>Benvenuto<strong> <?php echo $_SESSION['nickname']; ?></strong>!</em></li>
                         <li id="nav3"><div class="dropdown">
                               <button onclick="myFunction()" class="dropbtn"></button>
                                   <div id="myDropdown" class="dropdown-content">
@@ -79,12 +79,12 @@ if (isset($_GET['logout'])) {
                           $titolo=$row['titolo'];
                         $data=$row['datainizio'];
                         $organizzatore=$row['organizzatore'];
-                        $riga='<p>'.$titolo.'   '.$data.'    '.$organizzatore.' </p>';
+                        $riga='<p><a href="evento.php?idEv='.$idE.'">'.$titolo.'</a>   '.$data.'    '.$organizzatore.' </p>';
                           print $riga;
                       }
                   ?>
             </div>
-              <div class="grid-item fotoTopGrid">2
+              <div class="grid-item fotoTopGrid">
                     
             
             
@@ -105,7 +105,7 @@ if (isset($_GET['logout'])) {
                           $titolo=$row['titolo'];
                         $data=$row['datainizio'];
                         $organizzatore=$row['organizzatore'];
-                        $riga='<p>'.$titolo.'   '.$data.'    '.$organizzatore.' </p>';
+                        $riga='<p><a link="evento.php?idEv='.$idE.'">'.$titolo.'</a>   '.$data.'    '.$organizzatore.' </p>';
                           print $riga;
                       }
                   ?></div>
